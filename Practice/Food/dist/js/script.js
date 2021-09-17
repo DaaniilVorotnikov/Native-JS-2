@@ -88,4 +88,42 @@ window.addEventListener('DOMContentLoaded', () => {
     }
 
     setClock('.timer', deadline);
+
+
+//Modal Window
+
+const dataModals = document.querySelectorAll('[data-modal]');
+const dataClose = document.querySelector('[data-close]');
+const modal = document.querySelector('.modal');
+
+
+const modalOpen = () =>{
+    modal.classList.add('show');
+    modal.classList.remove('hide');
+    document.body.style.overflow = 'hidden';
+}
+
+const modalClose = () =>{
+    modal.classList.add('hide');
+    modal.classList.remove('show');
+    document.body.style.overflow = '';
+}
+
+    dataModals.forEach(dataModal => {
+        dataModal.addEventListener('click', modalOpen);
+    })
+        dataClose.addEventListener('click', modalClose);
+        modal.addEventListener('click', (e) => {
+        if(e.target === modal){
+            modalClose();
+        }
+    });
+
+//console.log(dataModal);
+document.addEventListener('keydown', (e) =>{
+    if(e.code === 'Escape' && modal.classList.contains('show')){
+        modalClose();
+    }
+});
+
 });
