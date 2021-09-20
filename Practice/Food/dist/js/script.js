@@ -1,28 +1,41 @@
+// При загрузке страницы выполняется следующее:
+
 window.addEventListener('DOMContentLoaded', () => {
     //Tabs
+
+    // Получение селектором для манипуляций;
     const tabs = document.querySelectorAll('.tabheader__item');
     const tabsContent = document.querySelectorAll('.tabcontent');
     const tabsParent = document.querySelector('.tabheader__items');
 
+    // Функция hideTabContent() добавляет для каждого элемента с классом tabсontent, стиль 
+    // hide и удаляет show, fade;
     const hideTabContent = () =>{
         tabsContent.forEach(item =>{
             item.classList.add('hide');
             item.classList.remove('show', 'fade');
         });
-
+    // При этом для элементов DOM-дерева c классом tabheader__item удаляет доп. класс tabheader__item_active
         tabs.forEach(item => {
             item.classList.remove('tabheader__item_active');
         })
     }
+
+    // Функция showTabContent() принимает аргумент i со значением 0, где i это номер элемента массива
+    // она добавляет классы css show и fade и убирает hide, делает активным tabheader_item_active для элемента с номером i
     const showTabContent = ( i = 0 ) => {
         tabsContent[i].classList.add('show', 'fade');
         tabsContent[i].classList.remove('hide');
         tabs[i].classList.add('tabheader__item_active');
     }
 
+    //Вызов функций
     hideTabContent();
     showTabContent();
 
+    // Обработчик событий установлен на элементах с классом .tabheader__items и если соответствующий итем
+    // содержит класс tabheader__item  для каждого элемента с классом tabheader__item происходит пересчет
+    // и вызов фукций hideTabContent и showTabContent с соответствующим аргументом i если элемент равен целевому; 
     tabsParent.addEventListener('click', (e) =>{
         const target = e.target;
 
@@ -36,10 +49,11 @@ window.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+
     //Timer
 
     //Устанавливаем дедлайн;
-    const deadline = '2021-09-18';
+    const deadline = '2021-09-30';
 
     //Функция получает параметром конечное время, рассчитывает оставшееся время в формате дни/часы/минуты/секунды
     //Возвращает полученные значения дней, часов, минут, секунд наружу; 
@@ -106,26 +120,28 @@ window.addEventListener('DOMContentLoaded', () => {
 
     //Modal Window
 
-const dataModals = document.querySelectorAll('[data-modal]');
-const dataClose = document.querySelector('[data-close]');
-const modal = document.querySelector('.modal');
+    // Получение элементов DOM-дерева по внутренним аргументам элементов и по классу;
+    const dataModals = document.querySelectorAll('[data-modal]');
+    const dataClose = document.querySelector('[data-close]');
+    const modal = document.querySelector('.modal');
 
-
-const modalOpen = () =>{
-    modal.classList.add('show');
-    modal.classList.remove('hide');
-    document.body.style.overflow = 'hidden';
-}
-
-const modalClose = () =>{
-    modal.classList.add('hide');
-    modal.classList.remove('show');
-    document.body.style.overflow = '';
-}
-
+    // Функция modalOpen() добавляет класс show и убирает класс hide для элемента с классом modal и глобально убирает скролл со страницы; 
+    const modalOpen = () =>{
+        modal.classList.add('show');
+        modal.classList.remove('hide');
+        document.body.style.overflow = 'hidden';
+    }
+    // Функция modalClose() добавляет класс hide и убирает класс show для элемента с классом modal и глобально возвращает скролл на страницу;
+    const modalClose = () =>{
+        modal.classList.add('hide');
+        modal.classList.remove('show');
+        document.body.style.overflow = '';
+    }
+    // Для каждо кнопки вызова модального окна добавляется обработчик событий
     dataModals.forEach(dataModal => {
         dataModal.addEventListener('click', modalOpen);
     })
+    // Закрывает модальное окно если была нажата кнопка закрыть и  прокликана свободная область вокруг окна но не внутри;
         dataClose.addEventListener('click', modalClose);
         modal.addEventListener('click', (e) => {
         if(e.target === modal){
@@ -133,11 +149,11 @@ const modalClose = () =>{
         }
     });
 
-
-document.addEventListener('keydown', (e) =>{
-    if(e.code === 'Escape' && modal.classList.contains('show')){
-        modalClose();
-    }
-});
+    // Закрывает модальное окно при клике на клавишу Esc;
+    document.addEventListener('keydown', (e) =>{
+        if(e.code === 'Escape' && modal.classList.contains('show')){
+            modalClose();
+        }
+    });
 
 });
