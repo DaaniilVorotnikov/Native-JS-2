@@ -122,7 +122,6 @@ window.addEventListener('DOMContentLoaded', () => {
 
     // Получение элементов DOM-дерева по внутренним аргументам элементов и по классу;
     const dataModals = document.querySelectorAll('[data-modal]');
-    const dataClose = document.querySelector('[data-close]');
     const modal = document.querySelector('.modal');
 
     // Функция modalOpen() добавляет класс show и убирает класс hide для элемента с классом modal и глобально убирает скролл со страницы; 
@@ -143,9 +142,8 @@ window.addEventListener('DOMContentLoaded', () => {
         dataModal.addEventListener('click', modalOpen);
     })
     // Закрывает модальное окно если была нажата кнопка закрыть и  прокликана свободная область вокруг окна но не внутри;
-        dataClose.addEventListener('click', modalClose);
         modal.addEventListener('click', (e) => {
-        if(e.target === modal){
+        if(e.target === modal || e.target.getAttribute('data-close') == ''){
             modalClose();
         }
     });
@@ -157,7 +155,7 @@ window.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    const modalTimerId = setTimeout(modalOpen, 3000);
+    const modalTimerId = setTimeout(modalOpen, 30000);
 
     const showModalByScroll = () =>{
         if(window.pageYOffset + document.documentElement.clientHeight >= document.documentElement.scrollHeight){
@@ -232,7 +230,7 @@ window.addEventListener('DOMContentLoaded', () => {
      const forms = document.querySelectorAll('form');
 
      const message ={
-         loading:'Загрузка',
+         loading:'img/spinner.svg',
          success: 'Спасибо, скоро мы с вами свяжемся',
          failure: 'Что-то пошло не так...'
      }
@@ -245,9 +243,13 @@ window.addEventListener('DOMContentLoaded', () => {
          form.addEventListener('submit', (e) =>{
             e.preventDefault();
 
-            const statusMessage = document.createElement('div');
-            statusMessage.classList.add('status');
-            statusMessage.textContent = message.loading;
+            const statusMessage = document.createElement('img');
+            statusMessage.src = message.loading;
+            statusMessage.style.cssText = `
+                display: block;
+                margin: 0 auto;
+            `;
+            form.insertAdjacentElement('afterend', statusMessage);
             form.append(statusMessage);
 
             const request = new XMLHttpRequest();
@@ -269,16 +271,41 @@ window.addEventListener('DOMContentLoaded', () => {
             request.addEventListener('load', () =>{
                 if(request.status === 200){
                     console.log(request.response);
+                    showThanksModal(message.success);
                     statusMessage.textContent = message.success;
                     form.reset();
-                    setTimeout(() => {
-                        statusMessage.remove();
-                    }, 2000);
+                    statusMessage.remove();
                 } else{
-                    
-                    statusMessage.textContent = message.failure;
+
+                    showThanksModal(message.failure);
                 }
             });
          });
+     }
+     function showThanksModal(message){
+        const prevModalDialog = document.querySelector('.modal__dialog');
+
+        prevModalDialog.classList.add('hide');
+      
+        modalOpen();
+
+        const thanksModal = document.createElement('div');
+
+        thanksModal.classList.add('modal__dialog');
+
+        thanksModal.innerHTML = `
+            <div class="modal__content">
+                <div class="modal__close" data-close>x</div>
+                <div class="modal__title">${message}</div>
+            </div>
+        `;
+
+        document.querySelector('.modal').append(thanksModal);
+        setTimeout(() => {
+            thanksModal.remove();
+            prevModalDialog.classList.add('show');
+            prevModalDialog.classList.remove('hide');
+            modalClose();
+        }, 5000);
      }
 });
