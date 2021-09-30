@@ -333,7 +333,14 @@ window.addEventListener('DOMContentLoaded', () => {
             modalClose();
         }, 5000);
      }
+
+     fetch(' http://localhost:3000/menu')
+     .then(data => data.json())
+     .then(res => console.log(res));
+
 });
+
+
 
 // fetch('https://jsonplaceholder.typicode.com/posts', {
 //     method:"POST",
@@ -344,3 +351,6 @@ window.addEventListener('DOMContentLoaded', () => {
 // })
 //     .then(response => response.json())
 //     .then(json => console.log(json))
+
+
+//documents/Учебка/NativJS2/Practice/Food  - поиск директории проекта
