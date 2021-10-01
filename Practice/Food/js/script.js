@@ -213,17 +213,39 @@ window.addEventListener('DOMContentLoaded', () => {
     }
 }    
 
+const getResource = async (url) => {
+    const res = await fetch(url);
+    
+    if(!res.ok){
+        throw new Error(`Could not fetch ${url}, status: ${res.status}`);
+    }
+
+    return await res.json();
+ };
+
+//  getResource('http://localhost:3000/menu')
+//     .then(data =>{
+//         data.forEach(({img, altimg,title, descr, price}) => {
+//             console.log(img, altimg,title, descr, price);
+//             new TabContent(img, altimg, title, descr, price, '.menu .container').render();
+//         });
+//     });
+
+getResource('http://localhost:3000/menu')
+
     // Вызов метода render через вызов класса TabContent;
-     new TabContent(
-         "img/tabs/vegy.jpg",
-         "vegy",
-         "Фитнес",
-         'Меню "Фитнес" - это новый подход к приготовлению блюд: больше свежих овощей и фруктов. Продукт активных и здоровых людей. Это абсолютно новый продукт с оптимальной ценой и высоким качеством!',
-          9,
-         '.menu .container',
-         'menu__item',
-         'big'
-     ).render();
+    //  new TabContent(
+    //      "img/tabs/vegy.jpg",
+    //      "vegy",
+    //      "Фитнес",
+    //      'Меню "Фитнес" - это новый подход к приготовлению блюд: больше свежих овощей и фруктов. Продукт активных и здоровых людей. Это абсолютно новый продукт с оптимальной ценой и высоким качеством!',
+    //       9,
+    //      '.menu .container',
+    //      'menu__item',
+    //      'big'
+    //  ).render();
+
+
 
      //Forms
 
@@ -353,9 +375,9 @@ window.addEventListener('DOMContentLoaded', () => {
         }, 5000);
      }
 
-     fetch('http://localhost:3000/menu')
-     .then(data => data.json())
-     .then(res => console.log(res));
+    //  fetch('http://localhost:3000/menu')
+    //  .then(data => data.json())
+    //  .then(res => console.log(res));
 
 });
 
