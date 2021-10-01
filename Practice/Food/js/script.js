@@ -231,8 +231,13 @@ const getResource = async (url) => {
 //         });
 //     });
 
-getResource('http://localhost:3000/menu')
-
+    axios.get('http://localhost:3000/menu')
+        .then(data =>{
+            data.data.forEach(({img, altimg,title, descr, price}) => {
+            new TabContent(img, altimg, title, descr, price, '.menu .container').render();
+        });
+    });
+    
     // Вызов метода render через вызов класса TabContent;
     //  new TabContent(
     //      "img/tabs/vegy.jpg",
