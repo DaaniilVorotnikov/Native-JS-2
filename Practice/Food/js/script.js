@@ -542,6 +542,44 @@ const getResource = async (url) => {
         });
     })
 
+    //Calc
+
+    const  result = document.querySelector('.calculating__result span');
+    let gender, height, weight, age, ratio;
+
+    function calcTotal(){
+        if(!gender || !height || !weight || !age || !ratio){
+            result.textContent='???';
+            return;
+        }
+        if(gender === 'female'){
+            result.textContent = (447.6 + (9.2 * weight) + (3.1 * height) - (4.3 * age)) * ratio;
+        } else{
+            result.textContent = (88.36 + (13.4 * weight) + (4.8 * height) - (5.7 * age)) * ratio;
+        }
+    }
+
+    calcTotal();
+
+    function getStaticInformation(parentSelector, activeClass){
+
+    }
+ });
+
+
+
+// fetch('https://jsonplaceholder.typicode.com/posts', {
+//     method:"POST",
+//     body: JSON.stringify({name:'Alex'}),
+//     headers: {
+//         'Content-type': 'application/json'
+//     }
+// })
+//     .then(response => response.json())
+//     .then(json => console.log(json))
+
+
+
 
 //     showSlides(slideIndex);
 
@@ -582,20 +620,6 @@ const getResource = async (url) => {
 //     next.addEventListener('click', () =>{
 //         plusSlides(1);
 //     })
-
- });
-
-
-
-// fetch('https://jsonplaceholder.typicode.com/posts', {
-//     method:"POST",
-//     body: JSON.stringify({name:'Alex'}),
-//     headers: {
-//         'Content-type': 'application/json'
-//     }
-// })
-//     .then(response => response.json())
-//     .then(json => console.log(json))
 
 
 //documents/Учебка/NativJS2/Practice/Food  - поиск директории проекта
