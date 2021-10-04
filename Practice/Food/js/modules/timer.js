@@ -1,8 +1,7 @@
-function timer(){
+function timer(id, deadline){
     //Timer
 
     //Устанавливаем дедлайн;
-    const deadline = '2021-09-30';
 
     //Функция получает параметром конечное время, рассчитывает оставшееся время в формате дни/часы/минуты/секунды
     //Возвращает полученные значения дней, часов, минут, секунд наружу; 
@@ -64,7 +63,7 @@ function timer(){
     }
 
     // Вызов функции setClock();
-    setClock('.timer', deadline);
+    setClock(id, deadline);
 }
 
-module.exports = timer;
+export default timer;
