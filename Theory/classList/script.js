@@ -50,5 +50,7 @@ wrapper.addEventListener('click', (e) => {
 
 //Добавление новой кнопки в wrapper
 const btn = document.createElement('button');
+//Назначение назначение кнопке класса red 
 btn.classList.add('red');
+// Добавляем кнопку в конец блока wrapper;
 wrapper.append(btn);

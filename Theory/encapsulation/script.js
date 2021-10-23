@@ -1,13 +1,16 @@
 'use strict';
 
+//Инициализируем класс;
 class User{
+  //В конструктор передаем аргументы с именем и возрастом;
     constructor(name, age){
-    this.name = name;
-    this._age = age;
+    this.name = name; //Создание свойств;
+    this._age = age;  //Условное обозначение _age условно позворлит соблюсти инкапсуляцию 
     }
-
+    //Переменная вне конструктора;
     #surname = 'Vorotnikov'
 
+    //Кастомный метод say;
     say = () => {
         console.log(`Имя пользователя: ${this.name} ${this.#surname}, возраст ${this._age}`);
     }

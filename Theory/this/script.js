@@ -63,7 +63,7 @@
 
     const btn = document.querySelector('button');
     
-    // В обработчиках собития если мы создаем функцию через function мы можем использовать this.
+    // В обработчиках события если мы создаем функцию через function мы можем использовать this.
     // В стрелочной функции контекст теряется, поэтому лучше всегда использовать e.target;
     btn.addEventListener('click', function(){
          console.log(this);
