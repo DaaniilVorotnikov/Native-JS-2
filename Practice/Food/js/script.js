@@ -1,24 +1,40 @@
-// При загрузке страницы выполняется следующее:
+import tabs from './modules/tabs'; //Подключение кода с табами;
+import modal from './modules/modal'; //Подключение модального окна;
+import timer from './modules/timer'; //Подключение таймера;
+import cards from './modules/cards'; //Подключение карт с блюдами;
+import calc from './modules/calc'; //Подключение калькулятора;
+import forms from './modules/forms';//Подключение форм;
+import slider from './modules/slider';//Подключение слайдера;
+import {modalOpen} from './modules/modal';//Подключение механизма открытия модального окна;
 
-import tabs from './modules/tabs';
-import modal from './modules/modal';
-import timer from './modules/timer';
-import cards from './modules/cards';
-import calc from './modules/calc';
-import forms from './modules/forms';
-import slider from './modules/slider';
-import {modalOpen} from './modules/modal';
-
+//При событии загрузка контетнта страницы происходит следующее:
 window.addEventListener('DOMContentLoaded', () => {
 
+    //Переменной modalTimerId присваивается значение setTimeout в котором
+    //по истечению 30 секунд выполняется функция открывающая модальное окно;
     const modalTimerId = setTimeout(() => modalOpen('.modal', modalTimerId), 30000);
   
+    //Вызывается функция табов и принимает в себя строковые параметры с названиями селекторов; 
     tabs('.tabheader__item', '.tabcontent', '.tabheader__items', 'tabheader__item_active');
+
+    //Вызывается функция модального окна и принимает в себя строковые параметры с названиями селекторов;
     modal('[data-modal]', '.modal', modalTimerId);
+
+    //Вызывается функция таймер и принимает в себя строковые параметры с названиями селекторов;
     timer('.timer', '2022-09-30');
+
+    //Вызывается функция с карточек блюд;
     cards();
+
+    //Вызывается функция калькулятор;
     calc();
+
+    //Вызывается функция обработки формы;
     forms('form', modalTimerId);
+
+    //Вызывается функция слайдер в слайдер передается объект из аргументов
+    //т.к. благодаря этому приему совершенно не имеет значения в каком порядке заданы
+    // параметры для данного слайдера
     slider({
         container: '.offer__slider',
         nextArrow: '.offer__slider-next',
